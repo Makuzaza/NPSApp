@@ -123,7 +123,7 @@ export default function Form() {
     })
       .then((response) => {
         console.log('RESPONSE', response);
-        var expiryDate = new Date();
+        const expiryDate = new Date();
         expiryDate.setMonth(expiryDate.getMonth() + 1);
         document.cookie = `id=${
           response.data.createSubmission._id
