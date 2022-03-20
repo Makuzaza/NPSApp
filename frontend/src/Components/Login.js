@@ -38,6 +38,7 @@ export default function Login() {
         if (response.data.authenticateUser) {
           auth.signin(() => {
             history.replace(from);
+            localStorage.setItem('auth', 'RrcAgaeyt3f7CxdGbF5GqNmd2NTH3NM7');
           });
         } else {
           setInputError(true);
@@ -78,6 +79,7 @@ export default function Login() {
         <TextField
           id="passwordField"
           error={inputError}
+          type="password"
           fullWidth={true}
           label="Password"
           onChange={handleTextChange}

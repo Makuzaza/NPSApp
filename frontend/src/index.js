@@ -20,10 +20,10 @@ import EmbeddWidget from './Components/EmbeddWidget';
 
 let url;
 if (process.env.NODE_ENV === 'production') {
-  console.log('peep');
+  console.log('prod');
   url = '/graphql';
 } else {
-  console.log('poop');
+  console.log('local');
   url = 'http://localhost:4000/graphql';
 }
 
@@ -56,7 +56,7 @@ function App() {
                 Admin
               </Button>
               <EmbeddWidget />
-              <AuthButton />
+              {<AuthButton />}
             </Toolbar>
           </AppBar>
           <Switch>
@@ -106,6 +106,7 @@ function useProvideAuth() {
   const signout = (authenticate) => {
     return fakeAuth.signout(() => {
       setUser(null);
+
       authenticate();
     });
   };
@@ -121,10 +122,15 @@ function AuthButton() {
   let history = useHistory();
   let auth = useAuth();
 
-  return auth.user ? (
+  return auth.user ||
+    localStorage.getItem('auth') === 'RrcAgaeyt3f7CxdGbF5GqNmd2NTH3NM7' ? (
     <Button
       onClick={() => {
-        auth.signout(() => history.push('/'));
+        auth.signout(() => {
+          history.push('/');
+          localStorage.removeItem('auth');
+          window.location.reload();
+        });
       }}
     >
       Sign out
@@ -138,7 +144,8 @@ function PrivateRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={({ location }) =>
-        auth.user ? (
+        auth.user ||
+        localStorage.getItem('auth') === 'RrcAgaeyt3f7CxdGbF5GqNmd2NTH3NM7' ? (
           children
         ) : (
           <Redirect

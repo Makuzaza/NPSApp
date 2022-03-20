@@ -67,28 +67,13 @@ export default function Admin() {
   const { loading, data } = useQuery(GET_SUBMISSIONS);
 
   if (loading) return 'Loading...';
-  console.log('data', data);
   const submissions = !filterDate
-    ? data.getAllSubmissions.map((submission) => (
-        <Grid item xs={6} sm={4} key={submission._id}>
-          <Card constiant="outlined">
-            <CardContent>
-              <Typography>Score: {submission.score}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      ))
-    : data.getAllSubmissions
-        .filter((submission) => submission.created_at > filterDate.getTime())
-        .map((submission) => (
-          <Grid item xs={6} sm={4} key={submission._id}>
-            <Card constiant="outlined">
-              <CardContent>
-                <Typography>Score: {submission.score}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ));
+    ? [...data.getAllSubmissions]
+    : [
+        ...data.getAllSubmissions.filter(
+          (submission) => submission.created_at > filterDate.getTime()
+        ),
+      ];
   return (
     <Container>
       <TitleText>Your NPS Score</TitleText>
@@ -116,11 +101,19 @@ export default function Admin() {
 
       <TitleText>Responses</TitleText>
       <Grid container spacing={3}>
-        {submissions}
+        {submissions.map((submission) => (
+          <Grid item xs={6} sm={4} key={submission._id}>
+            <Card constiant="outlined">
+              <CardContent>
+                <Typography>Score: {submission.score}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
 
-      <Charts data={data.getAllSubmissions} />
-      <Voters data={data.getAllSubmissions} />
+      <Charts data={submissions} />
+      <Voters data={submissions} />
     </Container>
   );
 }

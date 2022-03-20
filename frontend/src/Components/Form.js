@@ -52,6 +52,7 @@ const CREATE_SUBMISSION = gql`
 export default function Form() {
   const [open, setOpen] = React.useState(false);
   const [score, setScore] = React.useState(10);
+  const [voted, setVoted] = React.useState(false);
   const [submitterId, setSubmitterId] = React.useState(null);
 
   // eslint-disable-next-line
@@ -103,6 +104,11 @@ export default function Form() {
       label: 10,
     },
   ];
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
 
   const handleOnChange = (event, value) => {
     setScore(value);
@@ -117,7 +123,12 @@ export default function Form() {
     })
       .then((response) => {
         console.log('RESPONSE', response);
-        localStorage.setItem('id', response.data.createSubmission._id);
+        var expiryDate = new Date();
+        expiryDate.setMonth(expiryDate.getMonth() + 1);
+        document.cookie = `id=${
+          response.data.createSubmission._id
+        }; expires=${expiryDate.toGMTString()}`;
+        setVoted(true);
         setSubmitterId(response.data.createSubmission._id);
       })
       .then(() => {
@@ -131,28 +142,32 @@ export default function Form() {
   const closeDialog = () => {
     setOpen(false);
   };
-  const content = localStorage.getItem('id') ? (
-    <Voted />
-  ) : (
-    <>
-      {' '}
-      <StyledSlider
-        defaultValue={10}
-        id="scoreField"
-        marks={marks}
-        max={10}
-        min={0}
-        onChange={handleOnChange}
-        steps={10}
-        valueLabelDisplay="on"
-      />
-      <div>
-        <FormButton type="submit" color="primary" variant="contained">
-          Submit
-        </FormButton>
-      </div>
-    </>
-  );
+  const content =
+    getCookie('id') && voted ? (
+      <Voted />
+    ) : (
+      <>
+        {' '}
+        <StyledSlider
+          defaultValue={10}
+          id="scoreField"
+          marks={marks}
+          max={10}
+          min={0}
+          onChange={handleOnChange}
+          steps={10}
+          valueLabelDisplay="on"
+        />
+        <div>
+          <FormButton type="submit" color="primary" variant="contained">
+            Submit
+          </FormButton>
+        </div>
+      </>
+    );
+  React.useEffect(() => {
+    setVoted(getCookie('id') ? true : false);
+  }, [voted]);
   return (
     <Container>
       <TitleText>
