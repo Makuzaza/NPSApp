@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardContent,
@@ -6,9 +6,13 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
+
 import { gql, useQuery } from '@apollo/client';
 
 import { StyledSlider, TitleText } from './StyledComponents';
+import Calender from './Calender';
+import Charts from './Charts';
+import Voters from './WhoVoted';
 
 /*
   GraphQL
@@ -18,6 +22,7 @@ const GET_SUBMISSIONS = gql`
     getAllSubmissions {
       _id
       score
+      created_at
     }
   }
 `;
@@ -58,10 +63,32 @@ const marks = [
 ];
 
 export default function Admin() {
+  const [filterDate, setFilterDate] = useState(null);
   const { loading, data } = useQuery(GET_SUBMISSIONS);
 
   if (loading) return 'Loading...';
-
+  console.log('data', data);
+  const submissions = !filterDate
+    ? data.getAllSubmissions.map((submission) => (
+        <Grid item xs={6} sm={4} key={submission._id}>
+          <Card constiant="outlined">
+            <CardContent>
+              <Typography>Score: {submission.score}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))
+    : data.getAllSubmissions
+        .filter((submission) => submission.created_at > filterDate.getTime())
+        .map((submission) => (
+          <Grid item xs={6} sm={4} key={submission._id}>
+            <Card constiant="outlined">
+              <CardContent>
+                <Typography>Score: {submission.score}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ));
   return (
     <Container>
       <TitleText>Your NPS Score</TitleText>
@@ -76,18 +103,24 @@ export default function Admin() {
           valueLabelDisplay="on"
         />
       </div>
+      <TitleText>Filter By Date</TitleText>
+      <Grid
+        container
+        spacing={5}
+        style={{
+          margin: '30px 0 40px',
+        }}
+      >
+        <Calender setFilterDate={setFilterDate} filterDate={filterDate} />
+      </Grid>
+
       <TitleText>Responses</TitleText>
       <Grid container spacing={3}>
-        {data.getAllSubmissions.map((submission) => (
-          <Grid item xs={6} sm={4} key={submission._id}>
-            <Card constiant="outlined">
-              <CardContent>
-                <Typography>Score: {submission.score}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
+        {submissions}
       </Grid>
+
+      <Charts data={data.getAllSubmissions} />
+      <Voters data={data.getAllSubmissions} />
     </Container>
   );
 }

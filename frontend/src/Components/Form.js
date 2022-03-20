@@ -13,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { gql, useMutation } from '@apollo/client';
 
 import { FormButton, StyledSlider, TitleText } from './StyledComponents';
+import Voted from './Voted';
 
 /*
   Styles
@@ -116,6 +117,7 @@ export default function Form() {
     })
       .then((response) => {
         console.log('RESPONSE', response);
+        localStorage.setItem('id', response.data.createSubmission._id);
         setSubmitterId(response.data.createSubmission._id);
       })
       .then(() => {
@@ -129,7 +131,28 @@ export default function Form() {
   const closeDialog = () => {
     setOpen(false);
   };
-
+  const content = localStorage.getItem('id') ? (
+    <Voted />
+  ) : (
+    <>
+      {' '}
+      <StyledSlider
+        defaultValue={10}
+        id="scoreField"
+        marks={marks}
+        max={10}
+        min={0}
+        onChange={handleOnChange}
+        steps={10}
+        valueLabelDisplay="on"
+      />
+      <div>
+        <FormButton type="submit" color="primary" variant="contained">
+          Submit
+        </FormButton>
+      </div>
+    </>
+  );
   return (
     <Container>
       <TitleText>
@@ -149,22 +172,7 @@ export default function Form() {
           On a scale of 0 to 10, how likely are you to recommend Santosh Kalwar
           as Teacher?
         </HeaderText>
-        <StyledSlider
-          defaultValue={10}
-          id="scoreField"
-          marks={marks}
-          max={10}
-          min={0}
-          onChange={handleOnChange}
-          steps={10}
-          valueLabelDisplay="on"
-        />
-
-        <div>
-          <FormButton type="submit" color="primary" variant="contained">
-            Submit
-          </FormButton>
-        </div>
+        {content}
       </form>
       <Dialog open={open} onClose={closeDialog}>
         <DialogTitle>

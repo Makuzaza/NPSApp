@@ -42,6 +42,9 @@ const SubmissionType = new GraphQLObjectType({
     score: {
       type: GraphQLInt,
     },
+    created_at: {
+      type: GraphQLString,
+    },
   },
 });
 
@@ -86,7 +89,7 @@ const mutationType = new GraphQLObjectType({
         },
       },
       resolve(parent, args) {
-        let newSubmission = new Submission({
+        const newSubmission = new Submission({
           score: args.score,
         });
         return newSubmission.save();
@@ -103,7 +106,7 @@ const mutationType = new GraphQLObjectType({
         },
       },
       resolve(parent, args) {
-        let newUser = new User({
+        const newUser = new User({
           username: args.username,
           password: args.password,
         });

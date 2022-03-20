@@ -16,6 +16,7 @@ import Form from './Components/Form';
 import Admin from './Components/Admin';
 import Login from './Components/Login';
 import { authContext, useAuth } from './Components/utils';
+import EmbeddWidget from './Components/EmbeddWidget';
 
 let url;
 if (process.env.NODE_ENV === 'production') {
@@ -54,6 +55,7 @@ function App() {
               <Button component={Link} to="/admin">
                 Admin
               </Button>
+              <EmbeddWidget />
               <AuthButton />
             </Toolbar>
           </AppBar>

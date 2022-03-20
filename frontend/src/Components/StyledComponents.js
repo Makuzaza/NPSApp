@@ -44,4 +44,18 @@ const TitleText = withStyles({
   },
 })(Typography);
 
-export { FormButton, LoginButton, StyledSlider, TitleText };
+const VotedLabel = withStyles({
+  root: {
+    'font-family': "'Alata', sans-serif",
+    'font-size': '2rem',
+    display: 'flex',
+    'align-items': 'center',
+    'justify-content': 'center',
+    'border-radius': '30px',
+    padding: '20px 0',
+    'background-color': '#edf7ed',
+    color: '#1e4620',
+  },
+})(Typography);
+
+export { FormButton, LoginButton, StyledSlider, TitleText, VotedLabel };
