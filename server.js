@@ -34,7 +34,7 @@ const {
 } = graphql;
 
 const SubmissionType = new GraphQLObjectType({
-  name: 'SubmissionType',
+  name: "SubmissionType",
   fields: {
     _id: {
       type: GraphQLID,
@@ -89,7 +89,7 @@ const mutationType = new GraphQLObjectType({
         },
       },
       resolve(parent, args) {
-        const newSubmission = new Submission({
+        let newSubmission = new Submission({
           score: args.score,
         });
         return newSubmission.save();
@@ -106,7 +106,7 @@ const mutationType = new GraphQLObjectType({
         },
       },
       resolve(parent, args) {
-        const newUser = new User({
+        let newUser = new User({
           username: args.username,
           password: args.password,
         });
