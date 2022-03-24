@@ -1,30 +1,18 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import {
-  BrowserRouter,
-  Link,
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-} from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { AppBar, Button, IconButton, Toolbar } from '@material-ui/core';
-import { ChatBubble as HomeIcon } from '@material-ui/icons';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { authContext } from "./utils/index";
 
-import Form from './Components/Form';
-import Admin from './Components/Admin';
-import Login from './Components/Login';
-import { authContext, useAuth } from './Components/utils';
-import EmbeddWidget from './Components/EmbeddWidget';
+import App from "./App";
 
 let url;
-if (process.env.NODE_ENV === 'production') {
-  console.log('prod');
-  url = '/graphql';
+if (process.env.NODE_ENV === "production") {
+  console.log("peep");
+  url = "/graphql";
 } else {
-  console.log('local');
-  url = 'http://localhost:4000/graphql';
+  console.log("poop");
+  url = "http://localhost:4000/graphql";
 }
 
 console.log(url);
@@ -32,49 +20,8 @@ const apolloClient = new ApolloClient({
   uri: url,
   cache: new InMemoryCache(),
 });
-console.log(apolloClient);
 
-/*
-  Components
-*/
 
-function App() {
-  return (
-    <ProvideAuth>
-      <BrowserRouter>
-        <ApolloProvider client={apolloClient}>
-          <AppBar
-            color="transparent"
-            position="sticky"
-            style={{ boxShadow: 'none' }}
-          >
-            <Toolbar>
-              <IconButton edge="start" component={Link} to="/">
-                <HomeIcon />
-              </IconButton>
-              <Button component={Link} to="/admin">
-                Admin
-              </Button>
-              <EmbeddWidget />
-              {<AuthButton />}
-            </Toolbar>
-          </AppBar>
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <PrivateRoute path="/admin">
-              <Admin />
-            </PrivateRoute>
-            <Route path="/">
-              <Form />
-            </Route>
-          </Switch>
-        </ApolloProvider>
-      </BrowserRouter>
-    </ProvideAuth>
-  );
-}
 
 const fakeAuth = {
   isAuthenticated: false,
@@ -88,17 +35,13 @@ const fakeAuth = {
   },
 };
 
-function ProvideAuth({ children }) {
-  const auth = useProvideAuth();
-  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-}
 
 function useProvideAuth() {
   const [user, setUser] = useState(null);
 
   const signin = (authenticate) => {
     return fakeAuth.signin(() => {
-      setUser('user');
+      setUser("user");
       authenticate();
     });
   };
@@ -118,46 +61,19 @@ function useProvideAuth() {
   };
 }
 
-function AuthButton() {
-  let history = useHistory();
-  let auth = useAuth();
 
-  return auth.user ||
-    localStorage.getItem('auth') === 'RrcAgaeyt3f7CxdGbF5GqNmd2NTH3NM7' ? (
-    <Button
-      onClick={() => {
-        auth.signout(() => {
-          history.push('/');
-          localStorage.removeItem('auth');
-          window.location.reload();
-        });
-      }}
-    >
-      Sign out
-    </Button>
-  ) : null;
+function ProvideAuth({ children }) {
+  const auth = useProvideAuth();
+  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
 
-function PrivateRoute({ children, ...rest }) {
-  let auth = useAuth();
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        auth.user ||
-        localStorage.getItem('auth') === 'RrcAgaeyt3f7CxdGbF5GqNmd2NTH3NM7' ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <ProvideAuth>
+    <BrowserRouter>
+      <ApolloProvider client={apolloClient}>
+        <App />
+      </ApolloProvider>
+    </BrowserRouter>
+  </ProvideAuth>,
+  document.getElementById("root")
+);

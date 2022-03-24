@@ -1,23 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Container, TextField } from '@material-ui/core';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { LoginButton, TitleText } from '../StyledComponents';
+import { useAuth } from '../../utils/index';
+import { AUTHENTICATE_USER } from '../../utils/graphql';
 
-import { LoginButton, TitleText } from './StyledComponents';
-import { useAuth } from './utils';
-
-/*
-  GraphQL
-*/
-const AUTHENTICATE_USER = gql`
-  mutation authenticateUser($username: String!, $password: String!) {
-    authenticateUser(username: $username, password: $password)
-  }
-`;
-
-/*
-  Component
-*/
 export default function Login() {
   const history = useHistory();
   const location = useLocation();
@@ -25,8 +13,7 @@ export default function Login() {
   const [usernameString, setUsernameString] = useState(null);
   const [passwordString, setPasswordString] = useState(null);
   const [inputError, setInputError] = useState(false);
-  // eslint-disable-next-line
-  const [authenticateUser, { data }] = useMutation(AUTHENTICATE_USER);
+  const [authenticateUser] = useMutation(AUTHENTICATE_USER);
 
   const { from } = location.state || { from: { pathname: '/' } };
 
@@ -74,17 +61,19 @@ export default function Login() {
           onChange={handleTextChange}
           style={{ marginTop: '1.5rem' }}
           variant="outlined"
+          data-testid="usernameField"
         />
         <br />
         <TextField
           id="passwordField"
           error={inputError}
-          type="password"
           fullWidth={true}
           label="Password"
           onChange={handleTextChange}
           style={{ marginTop: '1.5rem' }}
           variant="outlined"
+          type="password"
+          data-testid="passwordField"
         />
       </form>
       <LoginButton onClick={login} variant="outlined">

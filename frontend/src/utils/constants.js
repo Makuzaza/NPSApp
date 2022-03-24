@@ -1,0 +1,69 @@
+export const marks = [
+  {
+    value: 0,
+    label: 0,
+  },
+  {
+    value: 1,
+    label: 1,
+  },
+  {
+    value: 2,
+    label: 2,
+  },
+  {
+    value: 3,
+    label: 3,
+  },
+  {
+    value: 4,
+    label: 4,
+  },
+  {
+    value: 5,
+    label: 5,
+  },
+  {
+    value: 6,
+    label: 6,
+  },
+  {
+    value: 7,
+    label: 7,
+  },
+  {
+    value: 8,
+    label: 8,
+  },
+  {
+    value: 9,
+    label: 9,
+  },
+  {
+    value: 10,
+    label: 10,
+  },
+];
+
+export const NPSmarks = [
+  {
+    value: -100,
+    label: -100,
+  },
+  {
+    value: 100,
+    label: 100,
+  },
+];
+
+export const iframeCode = 
+`
+<iframe
+width="100%"
+height="100%"
+src="http://localhost:3000"
+title="NPSApp"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen
+></iframe>`;
