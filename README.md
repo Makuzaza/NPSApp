@@ -28,8 +28,3 @@ Net Promoter Score using MERN (Mongo/Express/React/Node) stack
 # Use for reference
 
 Use solely for reference material only.
-
-# LICENSE
-
-MIT License
-Copyright (c) 2022 Santosh Kalwar
