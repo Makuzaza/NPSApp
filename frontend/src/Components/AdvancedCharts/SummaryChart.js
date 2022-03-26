@@ -16,7 +16,10 @@ const SummaryChart = ({ data, dataLength, netPromotersScore }) => (
             color: "#3A3A3A",
           }}
         >
-          <span style={{ fontSize: "35px", margin: "20px 0" }} className="netPromoters">
+          <span
+            style={{ fontSize: "35px", margin: "20px 0" }}
+            className="netPromoters"
+          >
             {netPromotersScore}
           </span>
           <span>Net Promoters Score</span>{" "}
@@ -25,13 +28,11 @@ const SummaryChart = ({ data, dataLength, netPromotersScore }) => (
           style={{
             textAlign: "center",
             color: "#3A3A3A",
-            margin: "30px 0"
+            margin: "30px 0",
           }}
         >
           <span>Total Response: </span>{" "}
-          <span style={{ fontSize: "25px"}}>
-            {dataLength}
-          </span>{" "}
+          <span style={{ fontSize: "25px" }}>{dataLength}</span>{" "}
         </div>
       </Grid>
       <Grid item xs={1} sm={6}>
@@ -60,29 +61,28 @@ const SummaryChart = ({ data, dataLength, netPromotersScore }) => (
 
           <Bar
             dataKey="promoters"
-            stackId="a"
             fill="#4BB543"
             label={{
               position: "right",
-              formatter: (v) => `${Math.round((v / dataLength) * 100)} %`,
+              formatter: (v) => `${Math.round((v / dataLength) * 100)}%`,
             }}
           />
           <Bar
             dataKey="passives"
-            stackId="a"
+
             fill="#5bc0de"
             label={{
               position: "right",
-              formatter: (v) => `${Math.round((v / dataLength) * 100)} %`,
+              formatter: (v) => `${Math.round((v / dataLength) * 100)}%`,
             }}
           />
           <Bar
             dataKey="detractors"
-            stackId="a"
+
             fill="#D0342C"
             label={{
               position: "right",
-              formatter: (v) => `${Math.round((v / dataLength) * 100)} %`,
+              formatter: (v) => `${Math.round((v / dataLength) * 100)}%`,
             }}
           />
         </BarChart>

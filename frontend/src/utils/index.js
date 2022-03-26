@@ -24,11 +24,10 @@ function calculateNPS(data) {
       acc["passives"] =
         score <= 8 && score > 6 ? acc["passives"] + 1 : acc["passives"];
       acc["promoters"] = score > 8 ? acc["promoters"] + 1 : acc["promoters"];
-      acc["nps"] = Math.ceil(
+      acc["nps"] = Math.round(
         100 * (acc["promoters"] / arr.length - acc["detractors"] / arr.length)
       );
       acc["day"] = day;
-      acc["netPromotersScore"] += score > 8 ? score : 0;
       return acc;
     },
     {
@@ -37,7 +36,6 @@ function calculateNPS(data) {
       promoters: 0,
       day: "",
       nps: 0,
-      netPromotersScore: 0,
     }
   );
 }
@@ -71,14 +69,12 @@ const formatSummary = (data)=> {
       acc["detractors"] += elm.detractors;
       acc["passives"] += elm.passives;
       acc["promoters"] += elm.promoters;
-      acc["netPromotersScore"] += elm.netPromotersScore;
       return acc;
     },
     {
       detractors: 0,
       passives: 0,
       promoters: 0,
-      netPromotersScore: 0,
     }
   );
   const finalInfo = Object.keys(info)
@@ -94,7 +90,7 @@ const formatSummary = (data)=> {
       finalInfo,
       final,
       info,
-      netPromotersScore: info.netPromotersScore,
+      netPromotersScore: calculateNPS(data).nps,
     };
 }
 
