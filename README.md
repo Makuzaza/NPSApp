@@ -12,10 +12,24 @@ This project is used for learning how to create net promoter score app using MER
 6. To check admin panel go to `localhost:3000/admin`
 7. Use [GraphQL](https://graphql.org/) to write mutations and queries
 
+# Tech stack used
+
+1.[MongoDB] (M) (https://www.mongodb.com/) 2.[Express] (E) (https://expressjs.com/) 3.[ReactJS] (R) (https://reactjs.org/) 4.[NodeJS] (N) (https://nodejs.org/en/) 5. GraphQL 6. Jest
+
+# Testing
+
+1. cd frontend
+2. `npm test`
+
 # NPSApp (step-by-step)
 
 Net Promoter Score using MERN (Mongo/Express/React/Node) stack
 
 # Use for reference
 
-Use solely for reference material only
+Use solely for reference material only.
+
+# LICENSE
+
+MIT License
+Copyright (c) 2022 Santosh Kalwar

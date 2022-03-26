@@ -1,10 +1,9 @@
-import React from "react";
-import { useMutation } from "@apollo/client";
-import { FormButton, HeaderText } from "../StyledComponents";
-import VoteBar from "./VoteBar";
-import { setCookie } from "../../utils";
-import { CREATE_SUBMISSION } from "../../utils/graphql";
-
+import React from 'react';
+import { useMutation } from '@apollo/client';
+import { FormButton, HeaderText } from '../StyledComponents';
+import VoteBar from './VoteBar';
+import { setCookie } from '../../utils';
+import { CREATE_SUBMISSION } from '../../utils/graphql';
 
 export default function Form({ setOpen, setVoted, setSubmitterId }) {
   const [score, setScore] = React.useState(10);
@@ -23,10 +22,10 @@ export default function Form({ setOpen, setVoted, setSubmitterId }) {
       },
     })
       .then((response) => {
-        var expiryDate = new Date();
+        const expiryDate = new Date();
         expiryDate.setMonth(expiryDate.getMonth() + 1);
         setCookie(
-          "id",
+          'id',
           response.data.createSubmission._id,
           expiryDate.toGMTString()
         );
@@ -37,7 +36,7 @@ export default function Form({ setOpen, setVoted, setSubmitterId }) {
         setOpen(true);
       })
       .catch((error) => {
-        console.log("ERROR: ", error);
+        console.log('ERROR: ', error);
       });
   };
 
@@ -49,7 +48,12 @@ export default function Form({ setOpen, setVoted, setSubmitterId }) {
       </HeaderText>
       <VoteBar score={score} handleOnChange={handleOnChange} />
       <div>
-        <FormButton type="submit" color="primary" variant="contained" data-testid="submit-bttn">
+        <FormButton
+          type="submit"
+          color="primary"
+          variant="contained"
+          data-testid="submit-bttn"
+        >
           Submit
         </FormButton>
       </div>
