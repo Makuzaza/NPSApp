@@ -12,9 +12,14 @@ This project is used for learning how to create net promoter score app using MER
 6. To check admin panel go to `localhost:3000/admin`
 7. Use [GraphQL](https://graphql.org/) to write mutations and queries
 
-# Tech stack used
+# Tech stack
 
-1.[MongoDB] (M) (https://www.mongodb.com/) 2.[Express] (E) (https://expressjs.com/) 3.[ReactJS] (R) (https://reactjs.org/) 4.[NodeJS] (N) (https://nodejs.org/en/) 5. GraphQL 6. Jest
+1.  [MongoDB] (M) (https://www.mongodb.com/)
+2.  [Express] (E) (https://expressjs.com/)
+3.  [ReactJS] (R) (https://reactjs.org/)
+4.  [NodeJS] (N) (https://nodejs.org/en/)
+5.  GraphQL
+6.  Jest
 
 # Testing
 
