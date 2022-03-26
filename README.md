@@ -14,12 +14,12 @@ This project is used for learning how to create net promoter score app using MER
 
 # Tech stack
 
-1.  [MongoDB] (M) (https://www.mongodb.com/)
-2.  [Express] (E) (https://expressjs.com/)
-3.  [ReactJS] (R) (https://reactjs.org/)
-4.  [NodeJS] (N) (https://nodejs.org/en/)
-5.  GraphQL
-6.  Jest
+1.  [MongoDB](https://www.mongodb.com/)
+2.  [Express](https://expressjs.com/)
+3.  [ReactJS](https://reactjs.org/)
+4.  [NodeJS](https://nodejs.org/en/)
+5.  [Jest](https://jestjs.io/)
+6.  [GraphQL](https://graphql.org/)
 
 # Testing
 
