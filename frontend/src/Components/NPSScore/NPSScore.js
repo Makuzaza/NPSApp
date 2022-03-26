@@ -1,17 +1,16 @@
-import React from 'react'
-import { calculateNPS } from '../../utils';
-import { NPSmarks } from '../../utils/constants';
-import { StyledSlider, TitleText } from '../StyledComponents';
+import React from "react";
+import { calculateNPS } from "../../utils";
+import { NPSmarks } from "../../utils/constants";
+import { StyledSlider, TitleText } from "../StyledComponents";
 
-
-const NPSScore = ({scores}) => {
+const NPSScore = ({ scores }) => {
   return (
     <>
       <TitleText data-testid="title-text">Your NPS Score</TitleText>
       <div style={{ padding: "20px" }}>
         <StyledSlider
           data-testid="nps-slider"
-          defaultValue={calculateNPS(scores)}
+          defaultValue={calculateNPS(scores).nps}
           disabled={true}
           marks={NPSmarks}
           max={100}
@@ -22,6 +21,6 @@ const NPSScore = ({scores}) => {
       </div>
     </>
   );
-}
+};
 
-export default NPSScore
+export default NPSScore;

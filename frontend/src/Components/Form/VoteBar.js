@@ -1,6 +1,6 @@
-import React from 'react';
-import { StyledSlider } from '../StyledComponents';
-import { marks } from '../../utils/constants';
+import React from "react";
+import { StyledSlider } from "../StyledComponents";
+import { marks } from "../../utils/constants";
 
 const VoteBar = ({ handleOnChange, score }) => {
   return (

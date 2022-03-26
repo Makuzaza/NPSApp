@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { Box, Container, CircularProgress } from '@material-ui/core';
-import { useQuery } from '@apollo/client';
-import Charts from '../../Components/Charts/Charts';
-import Voters from '../../Components/Voters/Voters';
-import NPSScore from '../../Components/NPSScore/NPSScore';
-import FilterByDate from '../../Components/FilterByDate/FilterByDate';
-import Scores from '../../Components/Scores/Scores';
-import { GET_SUBMISSIONS } from '../../utils/graphql';
+import React, { useState } from "react";
+import { Box, Container, CircularProgress } from "@material-ui/core";
+import { useQuery } from "@apollo/client";
+import Charts from "../../Components/Charts/Charts";
+import Voters from "../../Components/Voters/Voters";
+import NPSScore from "../../Components/NPSScore/NPSScore";
+import FilterByDate from "../../Components/FilterByDate/FilterByDate";
+import Scores from "../../Components/Scores/Scores";
+import { GET_SUBMISSIONS } from "../../utils/graphql";
+import AdvancedCharts from "../../Components/AdvancedCharts/AdvancedCharts";
 
 export default function Admin() {
   const [filterDate, setFilterDate] = useState(null);
@@ -15,7 +16,7 @@ export default function Admin() {
     return (
       <Box
         data-testid="loading-box"
-        sx={{ display: 'flex', justifyContent: 'center', padding: '100px 0' }}
+        sx={{ display: "flex", justifyContent: "center", padding: "100px 0" }}
       >
         <CircularProgress />
       </Box>
@@ -32,6 +33,7 @@ export default function Admin() {
       <FilterByDate setFilterDate={setFilterDate} filterDate={filterDate} />
       <Scores submissions={submissions} />
       <Charts data={submissions} />
+      <AdvancedCharts data={submissions} />
       <Voters data={submissions} />
     </Container>
   );

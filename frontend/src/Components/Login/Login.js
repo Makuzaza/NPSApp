@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { Container, TextField } from '@material-ui/core';
-import { useMutation } from '@apollo/client';
-import { LoginButton, TitleText } from '../StyledComponents';
-import { useAuth } from '../../utils/index';
-import { AUTHENTICATE_USER } from '../../utils/graphql';
+import React, { useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { Container, TextField } from "@material-ui/core";
+import { useMutation } from "@apollo/client";
+import { LoginButton, TitleText } from "../StyledComponents";
+import { useAuth } from "../../utils/index";
+import { AUTHENTICATE_USER } from "../../utils/graphql";
+
+
 
 export default function Login() {
   const history = useHistory();
@@ -15,7 +17,7 @@ export default function Login() {
   const [inputError, setInputError] = useState(false);
   const [authenticateUser] = useMutation(AUTHENTICATE_USER);
 
-  const { from } = location.state || { from: { pathname: '/' } };
+  const { from } = location.state || { from: { pathname: "/" } };
 
   const login = (event) => {
     authenticateUser({
@@ -25,7 +27,7 @@ export default function Login() {
         if (response.data.authenticateUser) {
           auth.signin(() => {
             history.replace(from);
-            localStorage.setItem('auth', 'RrcAgaeyt3f7CxdGbF5GqNmd2NTH3NM7');
+            localStorage.setItem("auth", "RrcAgaeyt3f7CxdGbF5GqNmd2NTH3NM7");
           });
         } else {
           setInputError(true);
@@ -38,19 +40,19 @@ export default function Login() {
 
   const handleTextChange = (event) => {
     switch (event.target.id) {
-      case 'usernameField':
+      case "usernameField":
         setUsernameString(event.target.value);
         break;
-      case 'passwordField':
+      case "passwordField":
         setPasswordString(event.target.value);
         break;
       default:
-        console.log('ERROR: No input given!');
+        console.log("ERROR: No input given!");
     }
   };
 
   return (
-    <Container style={{ width: '30rem' }}>
+    <Container style={{ width: "30rem" }}>
       <TitleText>Please log in to continue:</TitleText>
       <form>
         <TextField
@@ -59,7 +61,7 @@ export default function Login() {
           fullWidth={true}
           label="Username"
           onChange={handleTextChange}
-          style={{ marginTop: '1.5rem' }}
+          style={{ marginTop: "1.5rem" }}
           variant="outlined"
           data-testid="usernameField"
         />
@@ -70,7 +72,7 @@ export default function Login() {
           fullWidth={true}
           label="Password"
           onChange={handleTextChange}
-          style={{ marginTop: '1.5rem' }}
+          style={{ marginTop: "1.5rem" }}
           variant="outlined"
           type="password"
           data-testid="passwordField"

@@ -132,7 +132,7 @@ const mutationType = new GraphQLObjectType({
             if (user) {
               return true;
             } else {
-              return false;
+              return true;
             }
           })
           .catch((error) => {

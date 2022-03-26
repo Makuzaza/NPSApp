@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import NPSScore from "../NPSScore";
+import AdvancedCharts from "../AdvancedCharts";
 import { cleanup, render } from "@testing-library/react";
+import { formatSummary } from "../../../utils/index";
 import "@testing-library/jest-dom/extend-expect";
-import { calculateNPS } from "../../../utils";
+
+afterEach(cleanup);
 
 let scores;
 
@@ -30,24 +32,19 @@ beforeEach(() => {
   ];
 });
 
-afterEach(cleanup);
-
-describe("<NPSScore/> Component", () => {
+describe("<AdvancedCharts/> Component", () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<NPSScore scores={scores} />, div);
+    ReactDOM.render(<AdvancedCharts data={scores} />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it("Title text ", () => {
-    const { getByTestId } = render(<NPSScore scores={scores} />);
-    const titleText = getByTestId("title-text");
-    expect(titleText).toHaveTextContent("Your NPS Score");
-  });
-  it("Got the correct value text", () => {
-    const score = calculateNPS(scores).nps
-    const { container } = render(<NPSScore scores={scores} />);
-    const input = container.querySelector("input");
-    expect(+input.value).toEqual(score);
+  it("renders correctly", () => {
+    const { container } = render(<AdvancedCharts data={scores} />);
+    const { final } = formatSummary(scores);
+    expect(
+      [...container.querySelectorAll(".recharts-cartesian-axis-ticks")][2]
+        .children.length
+    ).toEqual(final.length);
   });
 });
