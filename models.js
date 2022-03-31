@@ -5,6 +5,7 @@ const submissionSchema = new mongoose.Schema(
     score: Number,
     strength: String,
     weakness: String,
+    feedback: String,
   },
   {
     timestamps: {

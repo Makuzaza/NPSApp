@@ -34,13 +34,16 @@ const {
 } = graphql;
 
 const SubmissionType = new GraphQLObjectType({
-  name: "SubmissionType",
+  name: 'SubmissionType',
   fields: {
     _id: {
       type: GraphQLID,
     },
     score: {
       type: GraphQLInt,
+    },
+    feedback: {
+      type: GraphQLString,
     },
     created_at: {
       type: GraphQLString,
@@ -87,10 +90,14 @@ const mutationType = new GraphQLObjectType({
         score: {
           type: new GraphQLNonNull(GraphQLInt),
         },
+        feedback: {
+          type: new GraphQLNonNull(GraphQLString),
+        },
       },
       resolve(parent, args) {
         let newSubmission = new Submission({
           score: args.score,
+          feedback: args.feedback,
         });
         return newSubmission.save();
       },
