@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Box, Container, CircularProgress } from "@material-ui/core";
 import { useQuery } from "@apollo/client";
 import Charts from "../../Components/Charts/Charts";
-import Voters from "../../Components/Voters/Voters";
 import NPSScore from "../../Components/NPSScore/NPSScore";
 import FilterByDate from "../../Components/FilterByDate/FilterByDate";
 import Scores from "../../Components/Scores/Scores";
+import FeedbackMessages from "../../Components/FeedbackMessages/FeedbackMessages";
 import { GET_SUBMISSIONS } from "../../utils/graphql";
 import AdvancedCharts from "../../Components/AdvancedCharts/AdvancedCharts";
+import { Switch, Route } from "react-router-dom";
 
 export default function Admin() {
   const [filterDate, setFilterDate] = useState(null);
@@ -29,12 +30,22 @@ export default function Admin() {
 
   return (
     <Container>
-      <NPSScore scores={data.getAllSubmissions} />
-      <FilterByDate setFilterDate={setFilterDate} filterDate={filterDate} />
-      <Scores submissions={submissions} />
-      <Charts data={submissions} />
-      <AdvancedCharts data={submissions} />
-      <Voters data={submissions} />
+      <Switch>
+        <Route exact path="/admin/">
+          <NPSScore scores={data.getAllSubmissions} />
+        </Route>
+        <Route exact path="/admin/responses">
+          <FilterByDate setFilterDate={setFilterDate} filterDate={filterDate} />
+          <Scores submissions={submissions} />
+        </Route>
+        <Route exact path="/admin/charts">
+          <Charts data={submissions} />
+          <AdvancedCharts data={submissions} />
+        </Route>
+        <Route exact path="/admin/feedback">
+          <FeedbackMessages submissions={submissions} />
+        </Route>
+      </Switch>
     </Container>
   );
 }

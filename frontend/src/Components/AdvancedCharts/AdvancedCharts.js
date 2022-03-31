@@ -1,13 +1,14 @@
-import React from 'react';
-import { TitleText } from '../StyledComponents';
-import { formatSummary } from '../../utils';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import SummaryChart from './SummaryChart';
+import React from "react";
+import { TitleText } from "../StyledComponents";
+import { formatSummary } from "../../utils";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import SummaryChart from "./SummaryChart";
 
 const AdvancedCharts = ({ data }) => {
   const { final, finalInfo, netPromotersScore } = formatSummary(data);
+  console.log(finalInfo);
   return (
-    <div style={{ margin: '30px 0 ', fontFamily: "'Alata', sans-serif" }}>
+    <div style={{ margin: "30px 0 ", fontFamily: "'Alata', sans-serif" }}>
       <TitleText data-testid="chart-title">Results</TitleText>
       <SummaryChart
         data={finalInfo}

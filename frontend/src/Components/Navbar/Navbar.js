@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 import { AppBar, Button, IconButton, Toolbar } from "@material-ui/core";
 import { ChatBubble as HomeIcon } from "@material-ui/icons";
 import EmbeddWidget from "../EmbeddWidget/EmbeddWidget";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 const Navbar = ({ setEmbeddMode, children, setOpen }) => {
   return (
     <AppBar
@@ -10,13 +10,17 @@ const Navbar = ({ setEmbeddMode, children, setOpen }) => {
       position="fixed"
       style={{ boxShadow: " 0 0 10px -6px #000" }}
     >
-      <Toolbar>
-        <IconButton edge="start" component={Link} to="/">
-          <HomeIcon />
-        </IconButton>
-        <Button component={Link} to="/admin">
-          Admin
-        </Button>
+      <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
+        <div>
+          <IconButton edge="start" component={Link} to="/">
+            <HomeIcon />
+          </IconButton>
+          <Button>
+            <Link style={{ color: "#333", textDecoration: "none" }} to="/admin">
+              Admin
+            </Link>
+          </Button>
+        </div>
         <EmbeddWidget setEmbeddMode={setEmbeddMode} setOpen={setOpen} />
         {children}
       </Toolbar>
@@ -24,4 +28,4 @@ const Navbar = ({ setEmbeddMode, children, setOpen }) => {
   );
 };
 
-export default Navbar
+export default Navbar;

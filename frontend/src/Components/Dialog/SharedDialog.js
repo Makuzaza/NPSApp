@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Button,
   Dialog,
@@ -6,8 +6,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@material-ui/core';
-import { DialogHeader } from '../StyledComponents';
+} from "@material-ui/core";
+import { DialogHeader } from "../StyledComponents";
 const SharedDialog = ({
   open,
   closeDialog,
@@ -25,7 +25,7 @@ const SharedDialog = ({
           {children}
         </DialogContentText>
       </DialogContent>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
         {embeddMode && (
           <DialogActions>
             <Button

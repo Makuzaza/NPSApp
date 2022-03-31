@@ -8,24 +8,31 @@ import { Button } from "@material-ui/core";
 import Login from "./Components/Login/Login";
 import { iframeCode } from "./utils/constants";
 import SharedDialog from "./Components/Dialog/SharedDialog";
+import { Menu,ExitToApp } from "@material-ui/icons";
+import Sidebar from "./Components/Navbar/Sidebar";
 
-function AuthButton() {
+function AuthButton({ handleClick }) {
   let history = useHistory();
   let auth = useAuth();
-
   return auth.user ||
     localStorage.getItem("auth") === "RrcAgaeyt3f7CxdGbF5GqNmd2NTH3NM7" ? (
-    <Button
-      onClick={() => {
-        auth.signout(() => {
-          history.push("/");
-          localStorage.removeItem("auth");
-          window.location.reload();
-        });
-      }}
-    >
-      Sign out
-    </Button>
+    <div style={{ justifySelf: "flex-end" }}>
+      <Button
+        onClick={() => {
+          auth.signout(() => {
+            history.push("/");
+            localStorage.removeItem("auth");
+            window.location.reload();
+          });
+        }}
+      >
+        <ExitToApp />
+      </Button>
+
+      <Button onClick={handleClick}>
+        <Menu />
+      </Button>
+    </div>
   ) : null;
 }
 
@@ -54,6 +61,7 @@ function PrivateRoute({ children, ...rest }) {
 function App() {
   const [embeddMode, setEmbeddMode] = useState(false);
   const [open, setOpen] = useState(false);
+  const [state, setState] = useState(false);
   const [submitterId, setSubmitterId] = useState(null);
   const closeDialog = () => {
     setOpen(false);
@@ -61,6 +69,10 @@ function App() {
   const handleCopy = () => {
     navigator.clipboard.writeText(iframeCode);
     setOpen(false);
+  };
+
+  const handleClick = () => {
+    setState(true);
   };
   const submitedContent = (
     <>
@@ -73,7 +85,7 @@ function App() {
   return (
     <div style={{ paddingTop: "60px" }}>
       <Navbar setEmbeddMode={setEmbeddMode} setOpen={setOpen}>
-        <AuthButton />
+        <AuthButton handleClick={handleClick} />
       </Navbar>
       <Switch>
         <Route path="/login">
@@ -95,6 +107,7 @@ function App() {
       >
         {embeddMode ? embeddContent : submitedContent}
       </SharedDialog>
+      <Sidebar state={state} setState={setState}/>
     </div>
   );
 }

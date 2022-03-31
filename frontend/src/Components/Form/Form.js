@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { FormButton, HeaderText } from '../StyledComponents';
 import VoteBar from './VoteBar';
+import Feedback from './Feedback';
 import { setCookie } from '../../utils';
 import { CREATE_SUBMISSION } from '../../utils/graphql';
 
 export default function Form({ setOpen, setVoted, setSubmitterId }) {
-  const [score, setScore] = React.useState(10);
-
+  const [score, setScore] = useState(10);
+  const [feedback, setFeedback] = useState('');
   const [createSubmission] = useMutation(CREATE_SUBMISSION);
 
   const handleOnChange = (event, value) => {
     setScore(value);
+  };
+  const handleFeedbackChange = (e) => {
+    setFeedback(e.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -19,6 +23,7 @@ export default function Form({ setOpen, setVoted, setSubmitterId }) {
     createSubmission({
       variables: {
         score: score,
+        feedback: feedback,
       },
     })
       .then((response) => {
@@ -47,6 +52,7 @@ export default function Form({ setOpen, setVoted, setSubmitterId }) {
         Teacher?
       </HeaderText>
       <VoteBar score={score} handleOnChange={handleOnChange} />
+      <Feedback feedback={feedback} handleChange={handleFeedbackChange} />
       <div>
         <FormButton
           type="submit"

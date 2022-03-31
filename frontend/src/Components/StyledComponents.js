@@ -1,4 +1,8 @@
-import { Button, Slider, Typography } from "@material-ui/core";
+import {
+  Button,
+  Slider,
+  Typography,
+} from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
 const FormButton = withStyles({
@@ -41,7 +45,7 @@ const TitleText = withStyles({
   root: {
     "font-family": "'Alata', sans-serif",
     "font-size": "2rem",
-    margin: "40px 0",
+    margin: "30px 0",
   },
 })(Typography);
 
@@ -83,6 +87,8 @@ const SubtitleText = withStyles({
   },
 })(Typography);
 
+
+
 export {
   FormButton,
   LoginButton,
@@ -92,4 +98,5 @@ export {
   HeaderText,
   SubtitleText,
   DialogHeader,
+
 };

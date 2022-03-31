@@ -4,16 +4,18 @@ export const GET_SUBMISSIONS = gql`
     getAllSubmissions {
       _id
       score
+      feedback
       created_at
     }
   }
 `;
 
 export const CREATE_SUBMISSION = gql`
-  mutation createSubmission($score: Int!) {
-    createSubmission(score: $score) {
+  mutation createSubmission($score: Int!, $feedback: String!) {
+    createSubmission(score: $score, feedback: $feedback) {
       _id
       score
+      feedback
     }
   }
 `;

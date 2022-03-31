@@ -42,8 +42,8 @@ describe("<Scores/> Component", () => {
     const { getByTestId } = render(<Scores submissions={scores} />);
     const scoresGrid = getByTestId("scores-grid");
     expect(scoresGrid.children.length).toEqual(3);
-    expect(scoresGrid.children[0].textContent).toEqual("Score: 10");
-    expect(scoresGrid.children[1].textContent).toEqual("Score: 4");
-    expect(scoresGrid.children[2].textContent).toEqual("Score: 3");
+    expect(scoresGrid.children[0]).toHaveTextContent("Score: 10");
+    expect(scoresGrid.children[1]).toHaveTextContent("Score: 4");
+    expect(scoresGrid.children[2]).toHaveTextContent("Score: 3");
   });
 });

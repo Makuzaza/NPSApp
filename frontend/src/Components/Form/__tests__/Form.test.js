@@ -13,31 +13,10 @@ import { CREATE_SUBMISSION } from "../../../utils/graphql";
 afterEach(cleanup);
 
 let url;
-let scores;
 
 beforeEach(() => {
   url = "http://localhost:4000/graphql";
   enableFetchMocks();
-  scores = [
-    {
-      _id: "623640bbd4da15371055d9ac",
-      score: 10,
-      created_at: "1646336684065",
-      __typename: "SubmissionType",
-    },
-    {
-      _id: "6236467f94a9836e2fd39cdc",
-      score: 4,
-      created_at: "1647722684065",
-      __typename: "SubmissionType",
-    },
-    {
-      _id: "623653d994a9836e2fd39cdd",
-      score: 3,
-      created_at: "1647722684065",
-      __typename: "SubmissionType",
-    },
-  ];
 });
 
 const apolloClient = new ApolloClient({
@@ -68,33 +47,35 @@ describe("<Form/> Component", () => {
       setVoted: jest.fn(),
       setSubmitterId: jest.fn(),
     };
-     await act(async () => {
-         const { container } = render(
-           <MockedProvider
-             mocks={[
-               {
-                 request: {
-                   query: CREATE_SUBMISSION,
-                   variables: {
-                     score: 10,
-                   },
-                 },
-                 result: {
-                   data: {
-                     createSubmission: {
-                       _id: "623badd43814e921ec86108f",
-                       score: 10,
-                       __typename: "SubmissionType",
-                     },
-                   },
-                 },
-               },
-             ]}
-             addTypename={false}
-           >
-             <Form {...baseProps} />
-           </MockedProvider>
-         );
+    await act(async () => {
+      const { container } = render(
+        <MockedProvider
+          mocks={[
+            {
+              request: {
+                query: CREATE_SUBMISSION,
+                variables: {
+                  score: 10,
+                  feedback: "",
+                },
+              },
+              result: {
+                data: {
+                  createSubmission: {
+                    _id: "623badd43814e921ec86108f",
+                    score: 10,
+                    feedback: "",
+                    __typename: "SubmissionType",
+                  },
+                },
+              },
+            },
+          ]}
+          addTypename={false}
+        >
+          <Form {...baseProps} />
+        </MockedProvider>
+      );
       const form = container.querySelector("form");
       fireEvent.submit(form);
       await new Promise((resolve) => setTimeout(resolve, 0));
