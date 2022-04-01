@@ -30,6 +30,10 @@ This project is used for learning how to create net promoter score app using MER
 
 Net Promoter Score using MERN (Mongo/Express/React/Node) stack
 
+# Production deployment
+
+The app is currently deployed at https://nps.unelma.dev/
+
 # Use for reference
 
 Use solely for reference material only.
