@@ -56,11 +56,10 @@ export const NPSmarks = [
   },
 ];
 
-export const iframeCode = 
-`
+export const iframeCode = `
 <iframe
-width="100%"
-height="100%"
+width="700px"
+height="600px"
 src="http://localhost:3000"
 title="NPSApp"
 frameborder="0"
