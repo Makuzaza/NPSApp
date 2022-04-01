@@ -95,7 +95,7 @@ const mutationType = new GraphQLObjectType({
         },
       },
       resolve(parent, args) {
-        let newSubmission = new Submission({
+        const newSubmission = new Submission({
           score: args.score,
           feedback: args.feedback,
         });
@@ -113,7 +113,7 @@ const mutationType = new GraphQLObjectType({
         },
       },
       resolve(parent, args) {
-        let newUser = new User({
+        const newUser = new User({
           username: args.username,
           password: args.password,
         });

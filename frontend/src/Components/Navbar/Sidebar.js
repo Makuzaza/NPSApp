@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Drawer,
   List,
@@ -6,14 +6,14 @@ import {
   ListItemIcon,
   ListItemText,
   Box,
-} from "@material-ui/core";
+} from '@material-ui/core';
 import {
   ChatBubble,
   BarChart,
   ViewComfy,
   EmojiEvents,
-} from "@material-ui/icons";
-import { Link } from "react-router-dom";
+} from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 export default function Sidebar({ state, setState }) {
   const toggleDrawer = () => {
@@ -22,7 +22,7 @@ export default function Sidebar({ state, setState }) {
 
   return (
     <>
-      <Drawer anchor={"left"} open={state} onClose={toggleDrawer}>
+      <Drawer anchor={'left'} open={state} onClose={toggleDrawer}>
         <Box
           sx={{ width: 250 }}
           role="presentation"
@@ -34,25 +34,25 @@ export default function Sidebar({ state, setState }) {
               <ListItemIcon>
                 <EmojiEvents />
               </ListItemIcon>
-              <ListItemText primary={"NPS Score"} />
+              <ListItemText primary={'NPS Score'} />
             </ListItem>
             <ListItem button component={Link} to="/admin/charts">
               <ListItemIcon>
                 <BarChart />
               </ListItemIcon>
-              <ListItemText primary={"Charts"} />
+              <ListItemText primary={'Charts'} />
             </ListItem>
             <ListItem button component={Link} to="/admin/responses">
               <ListItemIcon>
                 <ViewComfy />
               </ListItemIcon>
-              <ListItemText primary={"Responses"} />
+              <ListItemText primary={'Responses'} />
             </ListItem>
-            <ListItem button component={Link} to="admin/feedback">
+            <ListItem button component={Link} to="/admin/feedback">
               <ListItemIcon>
                 <ChatBubble />
               </ListItemIcon>
-              <ListItemText primary={"Feedback"} />
+              <ListItemText primary={'Feedback'} />
             </ListItem>
           </List>
         </Box>
