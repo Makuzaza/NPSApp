@@ -24,10 +24,13 @@ export default function Login() {
       variables: { username: usernameString, password: passwordString },
     })
       .then((response) => {
-        if (response.data.authenticateUser) {
+        if (response.data.authenticateUser.success) {
           auth.signin(() => {
             history.replace(from);
-            localStorage.setItem("auth", "RrcAgaeyt3f7CxdGbF5GqNmd2NTH3NM7");
+            localStorage.setItem(
+              "access_token",
+              response.data.authenticateUser.access_token
+            );
           });
         } else {
           setInputError(true);

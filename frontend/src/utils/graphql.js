@@ -22,6 +22,9 @@ export const CREATE_SUBMISSION = gql`
 
 export const AUTHENTICATE_USER = gql`
   mutation authenticateUser($username: String!, $password: String!) {
-    authenticateUser(username: $username, password: $password)
+    authenticateUser(username: $username, password: $password) {
+      access_token
+      success
+    }
   }
 `;

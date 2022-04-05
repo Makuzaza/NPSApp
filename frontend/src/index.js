@@ -1,23 +1,42 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { authContext } from './utils/index';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import { HashRouter } from "react-router-dom";
+import {
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+  ApolloProvider,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { authContext } from "./utils/index";
 
-import App from './App';
+import App from "./App";
 
 let url;
-if (process.env.NODE_ENV === 'production') {
-  console.log('peep');
-  url = '/graphql';
+if (process.env.NODE_ENV === "production") {
+  url = "/graphql";
 } else {
-  console.log('poop');
-  url = 'http://localhost:4000/graphql';
+  console.log("poop");
+  url = "http://localhost:4000/graphql";
 }
 
-console.log(url);
-const apolloClient = new ApolloClient({
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("access_token");
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? token : "",
+    },
+  };
+});
+
+const httpLink = createHttpLink({
   uri: url,
+});
+
+const apolloClient = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -38,7 +57,7 @@ function useProvideAuth() {
 
   const signin = (authenticate) => {
     return fakeAuth.signin(() => {
-      setUser('user');
+      setUser("user");
       authenticate();
     });
   };
@@ -71,5 +90,5 @@ ReactDOM.render(
       </ApolloProvider>
     </HashRouter>
   </ProvideAuth>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
