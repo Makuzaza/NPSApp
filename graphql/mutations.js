@@ -36,8 +36,13 @@ const mutation = new GraphQLObjectType({
         password: {
           type: new GraphQLNonNull(GraphQLString),
         },
+        secret: {
+          type: new GraphQLNonNull(GraphQLString),
+          defaultValue: "",
+          
+        },
       },
-      async resolve(_,args) {
+      async resolve(_, args) {
         return await signup(args);
       },
     },

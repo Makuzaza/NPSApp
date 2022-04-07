@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
-import Home from './Views/Home/Home';
-import Admin from './Views/Admin/Admin';
-import Navbar from './Components/Navbar/Navbar';
-import { useAuth } from './utils';
-import { Button } from '@material-ui/core';
-import Login from './Components/Login/Login';
-import { iframeCode } from './utils/constants';
-import SharedDialog from './Components/Dialog/SharedDialog';
-import { Menu, ExitToApp } from '@material-ui/icons';
-import Sidebar from './Components/Navbar/Sidebar';
+import React, { useState } from "react";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import Home from "./Views/Home/Home";
+import Admin from "./Views/Admin/Admin";
+import Navbar from "./Components/Navbar/Navbar";
+import { useAuth } from "./utils";
+import { Button } from "@material-ui/core";
+import Login from "./Components/Login/Login";
+import { iframeCode } from "./utils/constants";
+import SharedDialog from "./Components/Dialog/SharedDialog";
+import { Menu,ExitToApp } from "@material-ui/icons";
+import Sidebar from "./Components/Navbar/Sidebar";
 
 function AuthButton({ handleClick }) {
   let history = useHistory();
   let auth = useAuth();
-  return auth.user || localStorage.getItem('access_token') ? (
-    <div style={{ justifySelf: 'flex-end' }}>
+  return auth.user ||
+    localStorage.getItem("access_token")? (
+    <div style={{ justifySelf: "flex-end" }}>
       <Button
         onClick={() => {
           auth.signout(() => {
-            history.push('/');
-            localStorage.removeItem('access_token');
+            history.push("/");
+            localStorage.removeItem("access_token");
             window.location.reload();
           });
         }}
@@ -41,12 +42,13 @@ function PrivateRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={({ location }) =>
-        auth.user || localStorage.getItem('access_token') ? (
+        auth.user ||
+        localStorage.getItem("access_token")? (
           children
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: "/login",
               state: { from: location },
             }}
           />
@@ -75,13 +77,13 @@ function App() {
   const submitedContent = (
     <>
       Your feedback has been given the id "
-      <span style={{ color: 'blue', fontWeight: 'bold' }}>{submitterId}</span>"
+      <span style={{ color: "blue", fontWeight: "bold" }}>{submitterId}</span>"
       to maintain anonymity because of GDPR rule.
     </>
   );
   const embeddContent = <code>{iframeCode}</code>;
   return (
-    <div style={{ paddingTop: '60px' }}>
+    <div style={{ paddingTop: "60px" }}>
       <Navbar setEmbeddMode={setEmbeddMode} setOpen={setOpen}>
         <AuthButton handleClick={handleClick} />
       </Navbar>
@@ -105,7 +107,7 @@ function App() {
       >
         {embeddMode ? embeddContent : submitedContent}
       </SharedDialog>
-      <Sidebar state={state} setState={setState} />
+      <Sidebar state={state} setState={setState}/>
     </div>
   );
 }
