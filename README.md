@@ -23,6 +23,8 @@ This project is used for learning how to create net promoter score app using MER
 
 # Testing
 
+Overall, there are 16 Test Suites with total of 34 tests. All the components have individual test.
+
 1. cd frontend
 2. `npm test`
 
