@@ -14,6 +14,7 @@ pipeline {
               sh "pwd"
               dir('frontend') {
               sh "pwd"
+              sh 'npm install'
               sh 'npm test'
               }
             }
