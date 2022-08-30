@@ -11,16 +11,17 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'npm test'
-
+              sh "pwd"
+              dir('frontend') {
+              sh "pwd"
+              sh 'npm test'
+              }
             }
         }
         stage('Deploy') {
             steps {
                 echo "Deployed to AWS"
-
             }
         }
-
             }
       }
