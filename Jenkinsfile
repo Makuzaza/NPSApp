@@ -24,5 +24,5 @@ pipeline {
                 echo "Deployed to AWS"
             }
         }
-            }
-      }
+    }
+}
