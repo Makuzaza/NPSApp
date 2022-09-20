@@ -2,6 +2,8 @@
 
 This project is used for learning how to create net promoter score app using MERN stack.
 
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=kalwar_NPSApp)
+
 # Steps to follow
 
 1. `npm install` (to install dependencies in backend)
