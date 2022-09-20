@@ -9,7 +9,7 @@ const query = new GraphQLObjectType({
     getAllSubmissions: {
       type: GraphQLList(SubmissionType),
       resolve: async (_, __, req) => {
-        return await getAllSubmission(req);
+        return getAllSubmission(req);
       },
     },
   },
