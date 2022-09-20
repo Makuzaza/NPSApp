@@ -33,7 +33,7 @@ beforeEach(() => {
 });
 
 describe("<SummaryChart/> Component", () => {
-    const { final, finalInfo } = formatSummary(scores);
+    const { finalInfo } = formatSummary(scores);
   it("renders without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(<SummaryChart data={finalInfo} />, div);
@@ -41,7 +41,7 @@ describe("<SummaryChart/> Component", () => {
   });
 
   it("renders correctly", () => {
-      const { final, finalInfo ,netPromotersScore} = formatSummary(scores);
+      const { finalInfo ,netPromotersScore} = formatSummary(scores);
       const { container } = render(
         <SummaryChart
           data={finalInfo}

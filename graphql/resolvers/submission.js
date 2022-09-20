@@ -5,6 +5,6 @@ module.exports = {
     if (!req.isAuth) {
       return [{ message: "unauthorized", success: false }];
     }
-    return await Submission.find({});
+    return Submission.find({});
   },
 };

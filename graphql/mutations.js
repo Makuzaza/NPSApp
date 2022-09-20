@@ -43,7 +43,7 @@ const mutation = new GraphQLObjectType({
         },
       },
       async resolve(_, args) {
-        return await signup(args);
+        return signup(args);
       },
     },
     authenticateUser: {
@@ -57,7 +57,7 @@ const mutation = new GraphQLObjectType({
         },
       },
       async resolve(_, args) {
-        return await login(args);
+        return login(args);
       },
     },
   },
